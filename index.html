@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LittleStep — A Private Baby Album &amp; Tracker for Your Whole Family</title>
+<meta name="description" content="LittleStep is a private, family-only baby journal. Share photos &amp; videos, and track growth, feeding, and solid foods — all stored in your own iCloud. No servers, no ads on your memories.">
+<meta property="og:title" content="LittleStep — A Private Baby Album for Your Family">
+<meta property="og:description" content="Privately share your baby's photos and track growth, feeding & solids — stored in your own iCloud.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon.png">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<style>
+  :root{
+    --cream:#fcf5ef; --ink:#261f22; --ink2:#5f5658;
+    --rose:#e75a7e; --pink:#f7b8cb; --blue:#bcd7e6; --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  a{color:var(--rose);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+  .brand .logo{width:34px;height:34px;border-radius:9px;box-shadow:0 2px 6px rgba(38,31,34,.12);display:block}
+  .nav-links{display:flex;gap:24px;font-size:15px;color:var(--ink2)}
+  .nav-links a{color:var(--ink2)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{text-align:center;padding:56px 0 40px}
+  .hero .app-icon{width:104px;height:104px;border-radius:24px;box-shadow:0 12px 30px rgba(231,90,126,.28);margin-bottom:20px}
+  .hero h1{font-size:clamp(30px,5.5vw,50px);line-height:1.12;letter-spacing:-.02em;margin-bottom:18px}
+  .hero h1 .accent{color:var(--rose)}
+  .hero p.lede{font-size:clamp(16px,2.4vw,20px);color:var(--ink2);max-width:620px;margin:0 auto 30px}
+  .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--pink),var(--rose));
+    color:#fff;font-weight:600;font-size:17px;
+    padding:14px 30px;border-radius:999px;
+    box-shadow:0 8px 22px rgba(231,90,126,.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(231,90,126,.45);text-decoration:none}
+  .hero .sub{margin-top:14px;font-size:13px;color:var(--ink2)}
+
+  /* Badge / trust row */
+  .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:34px;font-size:14px;color:var(--ink2)}
+  .trust span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--rose);display:inline-block}
+
+  /* Section */
+  section{padding:52px 0}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .section-head h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.01em;margin-bottom:12px}
+  .section-head p{color:var(--ink2);font-size:17px}
+
+  /* Feature grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .card{
+    background:var(--card);border-radius:20px;padding:26px 24px;
+    box-shadow:0 6px 20px rgba(38,31,34,.05);
+  }
+  .card .ico{font-size:30px;margin-bottom:14px}
+  .card h3{font-size:19px;margin-bottom:8px}
+  .card p{color:var(--ink2);font-size:15px}
+
+  /* Privacy band */
+  .band{
+    background:linear-gradient(135deg,rgba(247,184,203,.25),rgba(188,215,230,.28));
+    border-radius:28px;padding:44px 32px;text-align:center;margin:8px 0;
+  }
+  .band h2{font-size:clamp(24px,3.6vw,32px);margin-bottom:14px}
+  .band p{color:var(--ink2);font-size:17px;max-width:640px;margin:0 auto 8px}
+  .pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
+  .pill{background:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:600;box-shadow:0 4px 12px rgba(38,31,34,.06)}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  details{background:#fff;border-radius:16px;padding:18px 22px;margin-bottom:12px;box-shadow:0 4px 14px rgba(38,31,34,.04)}
+  summary{font-weight:600;font-size:16px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--rose);font-size:22px;font-weight:400}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--ink2);font-size:15px;margin-top:12px}
+
+  /* Final CTA */
+  .final{text-align:center;padding:56px 0}
+  .final h2{font-size:clamp(26px,4vw,38px);margin-bottom:22px}
+
+  /* Footer */
+  footer{border-top:1px solid rgba(38,31,34,.08);padding:30px 0 44px;text-align:center;color:var(--ink2);font-size:14px}
+  footer .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin-bottom:14px}
+  footer .flinks a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="brand"><img class="logo" src="icon.png" alt="LittleStep icon"> LittleStep</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+      <a href="support.html">Support</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img class="app-icon" src="icon.png" alt="LittleStep app icon">
+    <h1>Your baby's first steps,<br><span class="accent">kept close to family.</span></h1>
+    <p class="lede">A private little album and tracker for the whole family. Share photos and videos, and log growth, feeding, and solid foods — all quietly stored in your own iCloud.</p>
+    <a class="cta" href="#" id="appstore">Download on the App Store</a>
+    <p class="sub">iPhone · Free with an optional ad-free membership</p>
+
+    <div class="trust">
+      <span><i class="dot"></i> Stored in your own iCloud</span>
+      <span><i class="dot"></i> Family-only sharing</span>
+      <span><i class="dot"></i> No servers, no data mining</span>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="section-head">
+      <h2>Everything about your little one, in one calm place</h2>
+      <p>Not another public social network — a private circle just for the people who love your baby.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">📸</div>
+        <h3>A family timeline</h3>
+        <p>Post photos and videos, react with emoji, and leave comments. A cozy feed shared only with the family you invite.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📈</div>
+        <h3>Growth curves</h3>
+        <p>Track height and weight against WHO P3–P97 reference bands. Tap any point to see the reading and percentile.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🍼</div>
+        <h3>Feeding tracker</h3>
+        <p>Quick-log feeds, a live "time since last feed" timer with custom reminders, a nursing stopwatch, and 7-day volume trends.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🥑</div>
+        <h3>Solid foods</h3>
+        <p>Age-based solids stages, first-food check-ins, allergy notes, and a custom weekly meal plan you build yourself.</p>
+      </div>
+      <div class="card">
+        <div class="ico">👨‍👩‍👧</div>
+        <h3>Invite the whole family</h3>
+        <p>Share a secure iCloud link with grandparents, aunts, and uncles. Set each person to view-only or edit, anytime.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🌙</div>
+        <h3>Made to feel gentle</h3>
+        <p>Soft design, light &amp; dark modes, and full English &amp; Simplified Chinese support. Built for iOS 17.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="band">
+      <h2>Private by design 🔒</h2>
+      <p>Your photos, videos, and records live in <strong>your own Apple iCloud</strong> — visible only to the family you invite. We don't run our own servers that store your memories, and we can't read them.</p>
+      <p>We don't sell your data, and we never use your family's content for advertising.</p>
+      <div class="pill-row">
+        <span class="pill">Stored in your iCloud</span>
+        <span class="pill">No third-party sharing</span>
+        <span class="pill">You control every invite</span>
+        <span class="pill">Delete anytime</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="section-head">
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>How is my family's data kept private?</summary>
+        <p>Everything you create is stored in Apple iCloud (CloudKit) under your own account, and shared only with the family members you explicitly invite to a baby's circle. There are no ad-driven feeds and no outside companies with access to your content.</p>
+      </details>
+      <details>
+        <summary>How do I invite family members?</summary>
+        <p>In the app, go to Settings → Family → "Invite Family" and share the secure iCloud link (Messages, AirDrop, etc.). Family members open it on their iPhone while signed in to iCloud. As the owner, you can set each person to view-only or edit, or remove them anytime.</p>
+      </details>
+      <details>
+        <summary>Is LittleStep free?</summary>
+        <p>Yes. LittleStep is free to use. An optional auto-renewing membership removes ads for non-subscribers; you can manage or cancel anytime in iOS Settings → Apple ID → Subscriptions.</p>
+      </details>
+      <details>
+        <summary>Can I track more than one baby?</summary>
+        <p>Absolutely. You can add multiple babies, switch between them, and even use a different nickname for yourself in each family circle.</p>
+      </details>
+      <details>
+        <summary>What happens if I delete a baby or the app?</summary>
+        <p>Deleting a baby in the app permanently removes its photos, records, and family sharing. Uninstalling the app clears locally cached data; your iCloud data follows Apple's iCloud controls.</p>
+      </details>
+    </div>
+  </section>
+
+  <div class="final">
+    <h2>Start your baby's private album today 🧸</h2>
+    <a class="cta" href="#">Download on the App Store</a>
+  </div>
+
+  <footer>
+    <div class="flinks">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:leilimeisrt@gmail.com">Contact</a>
+    </div>
+    <div>© 2026 LittleStep · A private baby album for families</div>
+  </footer>
+
+</div>
+</body>
+</html>
